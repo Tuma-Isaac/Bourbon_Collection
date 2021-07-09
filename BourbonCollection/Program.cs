@@ -19,20 +19,25 @@ namespace BourbonCollection
             var fileName = Path.Combine(directory.FullName, "BourbonCollection.csv");
             _bourbonBottles = ReadBourbonCollection(fileName);
 
+            //Cosmetic stuff
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.Clear();
+
             // List of options 
 
             StringBuilder options = new StringBuilder();
 
             options.Append("\n");
-            options.Append("\nWelcome to the Bourbon Collection");
-            options.Append("\n****************************");
-            options.Append("\nTo view the current collection, press 1.");
-            options.Append("\nTo add a new bottle, press 2");
-            options.Append("\nTo update a current bottle, press 3");
-            options.Append("\nTo remove a bottle, press 4");
-            options.Append("\nTo calculate the value of the collection, press 5");
-            options.Append("\n****************************");
-            options.Append("\nType quit to quit");
+            options.Append("\n\t             Welcome to the Bourbon Bank                   ");
+            options.Append("\n\t    *******************************************************");
+            options.Append("\n\t    *  To view the current collection, press 1            *");
+            options.Append("\n\t    *  To add a new bottle, press 2                       *");
+            options.Append("\n\t    *  To update a current bottle, press 3                *"); 
+            options.Append("\n\t    *  To remove a bottle, press 4                        *");
+            options.Append("\n\t    *  To calculate the value of the collection, press 5  *");
+            options.Append("\n\t    *  Type quit to quit                                  *");
+            options.Append("\n\t    *******************************************************");
+         
 
             while (true)
             {
@@ -106,7 +111,14 @@ namespace BourbonCollection
                     // Update an existing bottle count
                     else if (Int32.Parse(response) == 3)
                     {
-                       
+                        var amountofBottles = 0;
+                        Console.WriteLine("Which bottle would you like to update?");
+                        var updatedBottle = Console.ReadLine();
+                        Console.WriteLine("How many bottles would you like to add or subtract? Type - for subtraction.");
+                        if (Int32.TryParse(Console.ReadLine(), out intParse)) { amountofBottles = intParse; }
+                        UpdateBottle(updatedBottle, amountofBottles, "BourbonCollection.csv");
+                        continue;
+
                     }
                     // Remove a bottle from collection
                     else if (Int32.Parse(response) == 4)
@@ -143,6 +155,7 @@ namespace BourbonCollection
             return bourbonCollection;
         }
 
+        // Add a new bottle to file/collection
         private static void AddBottle(Bottle bottle, string filepath)
         {
 
@@ -152,6 +165,25 @@ namespace BourbonCollection
                 writer.Write($"\n{bottle.Name},{bottle.Distillery},{bottle.Size},{bottle.Proof},{bottle.Age},{bottle.MSRP},{bottle.SecondaryPrice},{bottle.BottlesOwned}");
             }
 
+        }
+
+        // Add/Remove another bottle to the collection if bottle is already in collection
+        public static void UpdateBottle(string Name, int amount, string filepath)
+        {
+            _bourbonBottles = ReadBourbonCollection(filepath);
+            using (var writer = new StreamWriter(filepath, false))
+            {
+                writer.WriteLine("Name,Distillery,Size(ml/L),Proof,Age,MSRP,SecondaryPrice,BottlesOwned");
+                foreach (var bottle in _bourbonBottles)
+                {
+                    if (bottle.Name.ToLower() == Name.ToLower())
+                    {
+                        bottle.BottlesOwned += amount;
+                    }
+
+                    writer.WriteLine(bottle);
+                }
+            }
         }
 
 
