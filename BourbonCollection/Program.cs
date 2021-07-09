@@ -40,7 +40,9 @@ namespace BourbonCollection
                 {
                     Console.WriteLine(options);
                     var response = Console.ReadLine();
-                  
+                    int intParse;
+                    double doubleParse;
+
 
                     if (response.ToLower() == "quit")
                     {
@@ -59,6 +61,44 @@ namespace BourbonCollection
                     // Add a new bottle to the collection
                     else if (Int32.Parse(response) == 2)
                     {
+                        var bottle = new Bottle();
+
+
+                        Console.WriteLine("Please enter the name of the bottle.");
+                        bottle.Name = Console.ReadLine();
+                        Console.WriteLine("Please enter the Distillery name");
+                        bottle.Distillery = Console.ReadLine();
+
+                        Console.WriteLine("Please enter the size of the bottle in ml/L.");
+                        if (double.TryParse(Console.ReadLine(), out doubleParse))
+                        {
+                            bottle.Size = doubleParse;
+                        }
+                        Console.WriteLine("Please enter the bottles proof.");
+                        if (double.TryParse(Console.ReadLine(), out doubleParse))
+                        {
+                            bottle.Proof = doubleParse;
+                        }
+                        Console.WriteLine("Please enter the bottles age. If the age is unknown, please enter NAS for No Age Statement.");
+                        bottle.Age = Console.ReadLine();
+                        Console.WriteLine("Please enter the MSRP value.");
+                        if (Int32.TryParse(Console.ReadLine(), out intParse))
+                        {
+                            bottle.MSRP = intParse;
+                        }
+                        Console.WriteLine("Please enter the secondary value.");
+                        if (Int32.TryParse(Console.ReadLine(), out intParse))
+                        {
+                            bottle.SecondaryPrice = intParse;
+
+                        }
+                        Console.WriteLine("Please enter the number of bottles you own");
+                        if (Int32.TryParse(Console.ReadLine(), out intParse))
+                        {
+                            bottle.BottlesOwned = intParse;
+                        }
+                        AddBottle(bottle, "BourbonCollection.csv");
+                        continue;
 
 
 
@@ -103,7 +143,18 @@ namespace BourbonCollection
             return bourbonCollection;
         }
 
-     
+        private static void AddBottle(Bottle bottle, string filepath)
+        {
+
+            using (StreamWriter writer = new StreamWriter(@filepath, true))
+            {
+
+                writer.Write($"\n{bottle.Name},{bottle.Distillery},{bottle.Size},{bottle.Proof},{bottle.Age},{bottle.MSRP},{bottle.SecondaryPrice},{bottle.BottlesOwned}");
+            }
+
+        }
+
+
 
         //Print bottles to console 
         static void PrintBottles(List<Bottle> bottles)
