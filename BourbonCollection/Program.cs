@@ -131,7 +131,8 @@ namespace BourbonCollection
                     // Calculate value of collection
                     else if (Int32.Parse(response) == 5)
                     {
-                      
+                        CalcValue(_bourbonBottles);
+                        continue;
                     }
                 }
                 catch (FormatException)
@@ -205,6 +206,32 @@ namespace BourbonCollection
                 }
 
             }
+
+        }
+
+
+        // Calculate the value of the collection
+
+        public static void CalcValue(List<Bottle> bottles)
+        {
+            int msrpValue = 0;
+            int secondaryValue = 0;
+
+            foreach (var bottle in bottles)
+            {
+                if (bottle.BottlesOwned >= 1)
+                {
+                    bottle.MSRP = bottle.MSRP * bottle.BottlesOwned;
+                    bottle.SecondaryPrice = bottle.SecondaryPrice * bottle.BottlesOwned;
+                }
+
+                msrpValue += bottle.MSRP;
+
+                secondaryValue += bottle.SecondaryPrice;
+
+            }
+            Console.WriteLine($"The MSRP value of your collection is: ${msrpValue}");
+            Console.WriteLine($"The secondary value of your collection is: ${secondaryValue}");
 
         }
 
