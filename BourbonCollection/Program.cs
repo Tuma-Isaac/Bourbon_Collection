@@ -28,15 +28,15 @@ namespace BourbonCollection
             StringBuilder options = new StringBuilder();
 
             options.Append("\n");
-            options.Append("\n\t             Welcome to the Bourbon Bank                   ");
-            options.Append("\n\t    *******************************************************");
-            options.Append("\n\t    *  To view the current collection, press 1            *");
-            options.Append("\n\t    *  To add a new bottle, press 2                       *");
-            options.Append("\n\t    *  To update a current bottle, press 3                *"); 
-            options.Append("\n\t    *  To remove a bottle, press 4                        *");
-            options.Append("\n\t    *  To calculate the value of the collection, press 5  *");
-            options.Append("\n\t    *  Type quit to quit                                  *");
-            options.Append("\n\t    *******************************************************");
+            options.Append("\n             Welcome to the Bourbon Bank               ");
+            options.Append("\n*******************************************************");
+            options.Append("\n*  To view the current collection, press 1            *");
+            options.Append("\n*  To add a new bottle, press 2                       *");
+            options.Append("\n*  To update a current bottle, press 3                *"); 
+            options.Append("\n*  To remove a bottle, press 4                        *");
+            options.Append("\n*  To calculate the value of the collection, press 5  *");
+            options.Append("\n*  Type quit to quit                                  *");
+            options.Append("\n*******************************************************");
          
 
             while (true)
@@ -123,7 +123,10 @@ namespace BourbonCollection
                     // Remove a bottle from collection
                     else if (Int32.Parse(response) == 4)
                     {
-                       
+                        Console.WriteLine("What bottle would you like to remove from the collection?");
+                        var bottleRemoved = Console.ReadLine();
+                        RemoveBottle(bottleRemoved, "BourbonCollection.csv");
+                        continue;
                     }
                     // Calculate value of collection
                     else if (Int32.Parse(response) == 5)
@@ -186,6 +189,24 @@ namespace BourbonCollection
             }
         }
 
+        //Remove a bottle
+        public static void RemoveBottle(string Name, string filepath)
+        {
+            _bourbonBottles = ReadBourbonCollection(filepath);
+            using (var writer = new StreamWriter(filepath, false))
+            {
+                writer.WriteLine("Name,Distillery,Size(ml/L),Proof,Age,MSRP,SecondaryPrice,BottlesOwned");
+                foreach (var bottle in _bourbonBottles)
+                {
+                    if (bottle.Name.ToLower() != Name.ToLower())
+                    {
+                        writer.WriteLine(bottle);
+                    }
+                }
+
+            }
+
+        }
 
 
         //Print bottles to console 

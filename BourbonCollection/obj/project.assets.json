@@ -43,19 +43,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\john\\.nuget\\packages\\": {}
+    "C:\\Users\\tumai\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\john\\Bourbon_Collection\\BourbonCollection\\BourbonCollection.csproj",
+      "projectUniqueName": "C:\\Users\\tumai\\source\\repos\\BourbonCollection\\BourbonCollection\\BourbonCollection.csproj",
       "projectName": "BourbonCollection",
-      "projectPath": "C:\\Users\\john\\Bourbon_Collection\\BourbonCollection\\BourbonCollection.csproj",
-      "packagesPath": "C:\\Users\\john\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\john\\Bourbon_Collection\\BourbonCollection\\obj\\",
+      "projectPath": "C:\\Users\\tumai\\source\\repos\\BourbonCollection\\BourbonCollection\\BourbonCollection.csproj",
+      "packagesPath": "C:\\Users\\tumai\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tumai\\source\\repos\\BourbonCollection\\BourbonCollection\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\john\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tumai\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
