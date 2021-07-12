@@ -10,14 +10,14 @@ namespace BourbonCollection
 {
     class Program
     {
-        private static List<Bottle> _bourbonBottles;
+       
         static void Main(string[] args)
         {
             // Get file path
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "BourbonCollection.csv");
-            _bourbonBottles = ReadBourbonCollection(fileName);
+            BottleFunctions._bourbonBottles = BottleFunctions.ReadBourbonCollection(fileName);
 
             //Cosmetic stuff
             Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -57,9 +57,9 @@ namespace BourbonCollection
                     // View current collection
                     else if (Int32.Parse(response) == 1)
                     {
-                        _bourbonBottles = ReadBourbonCollection(fileName);
+                        BottleFunctions._bourbonBottles = BottleFunctions.ReadBourbonCollection(fileName);
                         Console.WriteLine();
-                        PrintBottles(_bourbonBottles);
+                        BottleFunctions.PrintBottles(BottleFunctions._bourbonBottles);
                         continue;
 
                     }
@@ -102,7 +102,7 @@ namespace BourbonCollection
                         {
                             bottle.BottlesOwned = intParse;
                         }
-                        AddBottle(bottle, "BourbonCollection.csv");
+                        BottleFunctions.AddBottle(bottle, "BourbonCollection.csv");
                         continue;
 
 
@@ -116,7 +116,7 @@ namespace BourbonCollection
                         var updatedBottle = Console.ReadLine();
                         Console.WriteLine("How many bottles would you like to add or subtract? Type - for subtraction.");
                         if (Int32.TryParse(Console.ReadLine(), out intParse)) { amountofBottles = intParse; }
-                        UpdateBottle(updatedBottle, amountofBottles, "BourbonCollection.csv");
+                        BottleFunctions.UpdateBottle(updatedBottle, amountofBottles, "BourbonCollection.csv");
                         continue;
 
                     }
@@ -125,13 +125,13 @@ namespace BourbonCollection
                     {
                         Console.WriteLine("What bottle would you like to remove from the collection?");
                         var bottleRemoved = Console.ReadLine();
-                        RemoveBottle(bottleRemoved, "BourbonCollection.csv");
+                        BottleFunctions.RemoveBottle(bottleRemoved, "BourbonCollection.csv");
                         continue;
                     }
                     // Calculate value of collection
                     else if (Int32.Parse(response) == 5)
                     {
-                        CalcValue(_bourbonBottles);
+                        BottleFunctions.CalcValue(BottleFunctions._bourbonBottles);
                         continue;
                     }
                 }
@@ -145,106 +145,6 @@ namespace BourbonCollection
 
 
 
-        // Read data from file
-        public static List<Bottle> ReadBourbonCollection(string filepath)
-        {
-            var bourbonCollection = new List<Bottle>();
-
-            using (var reader = new StreamReader(filepath))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                bourbonCollection = csv.GetRecords<Bottle>().OrderBy(x => x.Distillery).ToList();
-            }
-
-            return bourbonCollection;
-        }
-
-        // Add a new bottle to file/collection
-        private static void AddBottle(Bottle bottle, string filepath)
-        {
-
-            using (StreamWriter writer = new StreamWriter(@filepath, true))
-            {
-
-                writer.Write($"\n{bottle.Name},{bottle.Distillery},{bottle.Size},{bottle.Proof},{bottle.Age},{bottle.MSRP},{bottle.SecondaryPrice},{bottle.BottlesOwned}");
-            }
-
-        }
-
-        // Add/Remove another bottle to the collection if bottle is already in collection
-        public static void UpdateBottle(string Name, int amount, string filepath)
-        {
-            _bourbonBottles = ReadBourbonCollection(filepath);
-            using (var writer = new StreamWriter(filepath, false))
-            {
-                writer.WriteLine("Name,Distillery,Size(ml/L),Proof,Age,MSRP,SecondaryPrice,BottlesOwned");
-                foreach (var bottle in _bourbonBottles)
-                {
-                    if (bottle.Name.ToLower() == Name.ToLower())
-                    {
-                        bottle.BottlesOwned += amount;
-                    }
-
-                    writer.WriteLine(bottle);
-                }
-            }
-        }
-
-        //Remove a bottle
-        public static void RemoveBottle(string Name, string filepath)
-        {
-            _bourbonBottles = ReadBourbonCollection(filepath);
-            using (var writer = new StreamWriter(filepath, false))
-            {
-                writer.WriteLine("Name,Distillery,Size(ml/L),Proof,Age,MSRP,SecondaryPrice,BottlesOwned");
-                foreach (var bottle in _bourbonBottles)
-                {
-                    if (bottle.Name.ToLower() != Name.ToLower())
-                    {
-                        writer.WriteLine(bottle);
-                    }
-                }
-
-            }
-
-        }
-
-
-        // Calculate the value of the collection
-
-        public static void CalcValue(List<Bottle> bottles)
-        {
-            int msrpValue = 0;
-            int secondaryValue = 0;
-
-            foreach (var bottle in bottles)
-            {
-                if (bottle.BottlesOwned >= 1)
-                {
-                    bottle.MSRP = bottle.MSRP * bottle.BottlesOwned;
-                    bottle.SecondaryPrice = bottle.SecondaryPrice * bottle.BottlesOwned;
-                }
-
-                msrpValue += bottle.MSRP;
-
-                secondaryValue += bottle.SecondaryPrice;
-
-            }
-            Console.WriteLine($"The MSRP value of your collection is: ${msrpValue}");
-            Console.WriteLine($"The secondary value of your collection is: ${secondaryValue}");
-
-        }
-
-
-        //Print bottles to console 
-        static void PrintBottles(List<Bottle> bottles)
-        {
-            foreach (var bottle in bottles)
-            {
-                Console.WriteLine(bottle);
-            }
-
-        }
     }
 }
 
