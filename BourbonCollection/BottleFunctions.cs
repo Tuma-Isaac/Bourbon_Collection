@@ -9,23 +9,11 @@ using System.Threading.Tasks;
 
 namespace BourbonCollection
 {
-    class BottleFunctions
+    class BottleFunctions : Bottle
     {
-        public static List<Bottle> _bourbonBottles;
+       
 
-        // Read data from file
-        public static List<Bottle> ReadBourbonCollection(string filepath)
-        {
-            var bourbonCollection = new List<Bottle>();
-
-            using (var reader = new StreamReader(filepath))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                bourbonCollection = csv.GetRecords<Bottle>().OrderBy(x => x.Distillery).ToList();
-            }
-
-            return bourbonCollection;
-        }
+       
 
         // Add a new bottle to file/collection
         public static void AddBottle(Bottle bottle, string filepath)
