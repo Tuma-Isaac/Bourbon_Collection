@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "fhqhl/Ele5Er9HFdBbgdoXzfZKIGs99E8MnNowOC7em7Q9JT0ejYed9pszX0rFA0o8u0wx51d7JBW4oyxPcTvQ==",
+  "dgSpecHash": "CsC3Gu9GCKeDhJ9AUxiLUdA+dnd6EvNkYNjcPfH1iPwNF0+RrNMM3yn4l2IE9XeoPInm5BuEQ/aNgDSRNwV7ig==",
   "success": true,
   "projectFilePath": "C:\\Users\\tumai\\source\\repos\\BourbonCollection\\BourbonCollection\\BourbonCollection.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\tumai\\.nuget\\packages\\csvhelper\\27.1.1\\csvhelper.27.1.1.nupkg.sha512"
+    "C:\\Users\\tumai\\.nuget\\packages\\csvhelper\\27.1.1\\csvhelper.27.1.1.nupkg.sha512",
+    "C:\\Users\\tumai\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }

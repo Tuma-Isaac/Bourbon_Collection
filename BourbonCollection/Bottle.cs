@@ -12,7 +12,8 @@ namespace BourbonCollection
 {
     class Bottle
     {
-        public static List<Bottle> _bourbonBottles;
+      
+
 
         [Name("Name")]
         public string Name { get; set; }
@@ -51,6 +52,8 @@ namespace BourbonCollection
 
             return bourbonCollection;
         }
+
+        public static List<Bottle> _bourbonBottles;
 
 
     }

@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -89,6 +90,14 @@ namespace BourbonCollection
             Console.WriteLine($"The MSRP value of your collection is: ${msrpValue}");
             Console.WriteLine($"The secondary value of your collection is: ${secondaryValue}");
 
+        }
+
+        // Serialize data to JSON
+
+        public static void SaveToJSON(List<Bottle> bottles, string filepath)
+        {
+            string jsonString = JsonConvert.SerializeObject(bottles, Formatting.Indented);
+            File.WriteAllText(filepath, jsonString);
         }
 
 

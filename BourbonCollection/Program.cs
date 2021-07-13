@@ -17,7 +17,8 @@ namespace BourbonCollection
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "BourbonCollection.csv");
-            BottleFunctions._bourbonBottles = BottleFunctions.ReadBourbonCollection(fileName);
+            var jsonFileName = Path.Combine(directory.FullName, "BourbonCollection.json");
+            Bottle._bourbonBottles = Bottle.ReadBourbonCollection(fileName);
 
             //Cosmetic stuff
             Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -57,9 +58,10 @@ namespace BourbonCollection
                     // View current collection
                     else if (Int32.Parse(response) == 1)
                     {
-                        BottleFunctions._bourbonBottles = BottleFunctions.ReadBourbonCollection(fileName);
+                        Bottle._bourbonBottles = Bottle.ReadBourbonCollection(fileName);
                         Console.WriteLine();
-                        BottleFunctions.PrintBottles(BottleFunctions._bourbonBottles);
+                        BottleFunctions.PrintBottles(Bottle._bourbonBottles);
+                        BottleFunctions.SaveToJSON(Bottle._bourbonBottles, "BourbonCollection.json");
                         continue;
 
                     }
@@ -131,7 +133,7 @@ namespace BourbonCollection
                     // Calculate value of collection
                     else if (Int32.Parse(response) == 5)
                     {
-                        BottleFunctions.CalcValue(BottleFunctions._bourbonBottles);
+                        BottleFunctions.CalcValue(Bottle._bourbonBottles);
                         continue;
                     }
                 }
